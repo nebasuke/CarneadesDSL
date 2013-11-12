@@ -1,0 +1,8 @@
+1.1.0.1 => 1.2
+=============
+This package version is now compatible with the translation package CarneadesIntoDung. 
+
+* Change the use of proof standards to rely on the definition of |PSName|
+  to allow for an easier translation.
+
+* Fix the definition of applicability to include all three conditions.
