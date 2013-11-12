@@ -2,7 +2,7 @@ name:          CarneadesDSL
 category:      Argumentation, Embedded, AI
 version:       1.2
 license:       BSD3
-cabal-version: >= 1.2
+cabal-version: >= 1.6
 license-file:  LICENSE
 author:        Bas van Gijzel, Henrik Nilsson
 maintainer:    Bas van Gijzel <bmv@cs.nott.ac.uk>

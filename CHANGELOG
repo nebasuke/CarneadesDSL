@@ -1,6 +1,7 @@
 1.1.0.1 => 1.2
 =============
 This package version is now compatible with the translation package CarneadesIntoDung. 
+See http://hackage.haskell.org/package/CarneadesIntoDung/
 
 * Change the use of proof standards to rely on the definition of |PSName|
   to allow for an easier translation.
