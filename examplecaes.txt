@@ -1,0 +1,19 @@
+argument arg1 ["kill", "intent"] [ ] "murder"
+argument arg2 ["witness" ] ["unreliable"] "intent"
+argument arg3 ["witness2"] ["unreliable2"] "-intent"
+
+weight arg1 0.8
+weight arg2 0.3
+weight arg3 0.8
+
+assumptions ["kill", "witness", "witness2", "unreliable2"]
+
+-- Haskell style commments are allowed.
+
+{- also valid for standards: 
+   standard "intent" BeyondReasonableDoubt -}
+
+standard "kill" scintilla
+standard "intent" beyond_reasonable_doubt
+
+

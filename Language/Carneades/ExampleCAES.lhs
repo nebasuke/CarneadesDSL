@@ -5,6 +5,9 @@ module Language.Carneades.ExampleCAES where
 
 import Prelude hiding (negate)
 import Language.Carneades.CarneadesDSL
+import Language.Carneades.Input
+import System.Exit
+import Control.Monad (when)
 \end{code}
 
 
@@ -141,6 +144,36 @@ testNotMurder  :: Bool
 testNotMurder  = acceptable (mkProp "-murder") caes
 \end{code}
 
+Assuming a file examplecaes.txt with the following input:
 
+
+argument arg1 ["kill", "intent"] [ ] "murder"
+argument arg2 ["witness" ] ["unreliable"] "intent"
+argument arg3 ["witness2"] ["unreliable2"] "-intent"
+
+weight arg1 0.8
+weight arg2 0.3
+weight arg3 0.8
+
+assumptions ["kill", "witness", "witness2", "unreliable2"]
+
+-- Haskell style commments are allowed.
+
+{- also valid for standards: 
+   standard "intent" BeyondReasonableDoubt -}
+
+standard "kill" scintilla
+standard "intent" beyond_reasonable_doubt
+
+
+\begin{code}
+parse :: IO ()
+parse = do 
+           input <- readFile "examplecaes.txt"
+           argSet <- case (parseCAES input) of 
+               Left err -> putStrLn "Parsing error: " >> print err >> exitWith (ExitFailure 1)
+               Right (CAES (argSet, _, _)) -> return argSet
+           print $ getAllArgs argSet
+\end{code}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%End example code%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
