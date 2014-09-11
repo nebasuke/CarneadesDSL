@@ -20,6 +20,7 @@ build-type:    Simple
 
 Extra-Source-Files:
                            CHANGELOG
+                           examplecaes.txt
 
 Library
   build-depends:

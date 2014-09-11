@@ -170,10 +170,12 @@ standard "intent" beyond_reasonable_doubt
 parse :: IO ()
 parse = do 
            input <- readFile "examplecaes.txt"
-           argSet <- case (parseCAES input) of 
+           (CAES (argSet, (assumps, weight), standard)) <- case parseCAES input of 
                Left err -> putStrLn "Parsing error: " >> print err >> exitWith (ExitFailure 1)
-               Right (CAES (argSet, _, _)) -> return argSet
+               Right caes -> return caes
            print $ getAllArgs argSet
+           print assumps
+           print $ standard (mkProp "intent")
 \end{code}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%End example code%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 

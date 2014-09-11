@@ -169,7 +169,7 @@ type PropStandard = PropLiteral -> PSName
 data PSName = Scintilla 
   | Preponderance | ClearAndConvincing 
   | BeyondReasonableDoubt | DialecticalValidity
- deriving Eq
+ deriving (Show, Eq)
 \end{code}
 
 \begin{spec}
