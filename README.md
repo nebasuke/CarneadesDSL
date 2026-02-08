@@ -1,7 +1,7 @@
 # CarneadesDSL
 
 An implementation and domain-specific language for the
-[Carneades argumentation model](https://en.wikipedia.org/wiki/Carneades_(software)).
+[Carneades argumentation model](https://carneades.github.io/).
 
 ## Synopsis
 
