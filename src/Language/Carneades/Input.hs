@@ -12,9 +12,8 @@
 -- Argument names are assumed to consist only of letters and numbers.
 -- Arguments used in attacks should be declared separately as well. 
 --
--- For a complete example see <http://www.cs.nott.ac.uk/~bmv/Code/examplecaes.txt>
--- (also included as an additional source file) or see the accompanying 
--- ExampleCAES module.
+-- For a complete example see the included @examplecaes.txt@ file or
+-- the accompanying ExampleCAES module.
 module Language.Carneades.Input
   (
    -- * Parsing functions
@@ -24,13 +23,9 @@ module Language.Carneades.Input
 import Language.Carneades.CarneadesDSL
 import Text.Parsec
 import Text.Parsec.String (Parser)
-import Text.Parsec.Char (char, string)
 import qualified Text.Parsec.Token as P
-import Text.Parsec.Language(haskellStyle)
-import Text.Parsec.Error(errorMessages, messageString)
-import Data.Either (partitionEithers)
-import Debug.Trace
-import Data.Maybe(fromMaybe)    
+import Text.Parsec.Language (haskellStyle)
+import Data.Maybe(fromMaybe)
 
 -- This allows the parsing of a CAES to have comments,
 -- arguments consisting of a letter followed by alphanumerical characters, etc.
@@ -85,17 +80,17 @@ pProposition = do
 -- |Parses a list of propositions. Propositions are separated by commas.
 -- Optional whitespace is allowed in the list.
 pPropositions :: Parser [PropLiteral]
-pPropositions = do 
-                   char '[' >> whiteSpace
+pPropositions = do
+                   _ <- char '[' >> whiteSpace
                    ps <- pProposition `sepBy` (symbol "," >> whiteSpace)
-                   char ']' >> whiteSpace
+                   _ <- char ']' >> whiteSpace
                    return ps
 
 -- |Parses a complete argument consists of @arg@ or @argument@ followed by an
  -- @argName@, two lists of propositions, and a conclusion. 
 pArgument :: Parser Argument'
-pArgument = do 
-               try (string "argument") <|> string "arg"
+pArgument = do
+               _ <- try (string "argument") <|> string "arg"
                whiteSpace
                name <- argName
                prems <- pPropositions
@@ -108,7 +103,7 @@ pArgument = do
 -- and a 'Double' assigned to that argument.
 pWeight :: Parser Weight'
 pWeight = do
-             string "weight" >> whiteSpace
+             _ <- string "weight" >> whiteSpace
              name <- argName
              weight <- float
              return (name, weight)
@@ -116,8 +111,8 @@ pWeight = do
 -- |Parses a list of assumptions. A list of assumptions is just the keyword 
 -- @assumptions@ followed by a list of propositions.
 pAssumptions :: Parser Assumptions
-pAssumptions = do 
-                  string "assumptions" >> whiteSpace
+pAssumptions = do
+                  _ <- string "assumptions" >> whiteSpace
                   pPropositions
 
 -- |Parses the name of a proof standard allowing both the names as given in 
@@ -143,8 +138,8 @@ pPSName =  try ((try (string "Scintilla") <|>
 -- by the string @standard@ followed by a proposition and the name of a proof 
 -- standard.
 pStandard :: Parser Standard'
-pStandard = do 
-                string "standard"
+pStandard = do
+                _ <- string "standard"
                 whiteSpace
                 name <- argName
                 psName <- pPSName
@@ -158,8 +153,8 @@ argToArg (Arg' _ a) = Arg a
 
 -- |Looks up a normal argument in a list of named argument and returns its name.
 lookupArg :: Argument -> [Argument'] -> Maybe String
-lookupArg a [] = Nothing 
-lookupArg a (Arg' name a' : args) 
+lookupArg _ [] = Nothing
+lookupArg a (Arg' name a' : args)
  | a == Arg a' = Just name
  | otherwise = lookupArg a args
 
